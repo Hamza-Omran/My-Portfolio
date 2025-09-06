@@ -7,7 +7,6 @@ const ProjectCard = ({ repo, demoLink, projectImage, getLanguageColor }) => {
         <div className="repo-card">
             <div className="repo-header">
                 <h3 className="repo-title">
-                    <span className="repo-icon"><i className="fas fa-folder"></i></span>
                     {repo.name}
                 </h3>
                 {repo.language && (
