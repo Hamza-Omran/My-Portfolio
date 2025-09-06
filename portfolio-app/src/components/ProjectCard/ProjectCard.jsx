@@ -1,6 +1,7 @@
 import React from 'react';
 import './ProjectCard.css';
 
+// ProjectCard component for displaying individual repository cards
 const ProjectCard = ({ repo, demoLink, projectImage, getLanguageColor }) => {
     return (
         <div className="repo-card">
