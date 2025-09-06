@@ -6,30 +6,25 @@ const Projects = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // GitHub API headers with authentication
     const getGitHubHeaders = useCallback(() => {
         const headers = {
             'Accept': 'application/vnd.github.v3+json',
             'User-Agent': 'Portfolio-Website'
         };
 
-        // Always use token for production (5000/hour limit)
         const token = import.meta.env.VITE_GITHUB_TOKEN;
         if (token && token !== 'your_github_token_here' && token !== '') {
             headers['Authorization'] = `token ${token}`;
             console.log('GitHub API: Using authenticated requests (5000/hour limit)');
         } else {
             console.error('GitHub API: No token provided! Add VITE_GITHUB_TOKEN to environment variables.');
-            // Still proceed but with limited rate
         }
 
         return headers;
     }, []);
 
-    // Function to fetch and parse README.md for demo link and project image
     const fetchReadmeData = useCallback(async (owner, repoName) => {
         try {
-            // Add delay to avoid rate limiting
             await new Promise(resolve => setTimeout(resolve, 100));
 
             const readmeResponse = await fetch(`https://api.github.com/repos/${owner}/${repoName}/readme`, {
@@ -46,27 +41,22 @@ const Projects = () => {
             }
 
             const readmeData = await readmeResponse.json();
-            const content = atob(readmeData.content); // Decode base64 content            // Get first 100 lines
+            const content = atob(readmeData.content); 
             const lines = content.split('\n').slice(0, 100);
             const first100Lines = lines.join('\n');
 
-            // Search for the first link after the word "demo" (case-insensitive)
             let demoLink = null;
 
-            // Find the position of the word "demo" (case-insensitive)
             const demoMatch = first100Lines.match(/demo/i);
 
             if (demoMatch) {
-                // Get the text starting from after the word "demo"
                 const textAfterDemo = first100Lines.substring(demoMatch.index + demoMatch[0].length);
 
-                // Find the first HTTP/HTTPS link in the text after "demo"
                 const linkMatch = textAfterDemo.match(/https?:\/\/[^\s\n)]+/i);
 
                 if (linkMatch) {
                     const potentialLink = linkMatch[0];
 
-                    // Filter out image URLs
                     const imageExtensions = /\.(png|jpg|jpeg|gif|webp|svg|ico)(\?|$)/i;
                     if (!imageExtensions.test(potentialLink)) {
                         demoLink = potentialLink;
@@ -81,11 +71,10 @@ const Projects = () => {
                 console.log(`No "demo" word found in ${repoName}`);
             }
 
-            // Search for project image (usually after demo link)
             const imagePatterns = [
                 /!\[.*?\]\(([^)]+\.(png|jpg|jpeg|gif|webp|svg))\)/i,
-                /!\[.*?\]\(([^)]+)\)/i, // Any image markdown
-                /<img[^>]+src=["']([^"']+)["'][^>]*>/i // HTML img tags
+                /!\[.*?\]\(([^)]+)\)/i, 
+                /<img[^>]+src=["']([^"']+)["'][^>]*>/i 
             ];
 
             let projectImage = null;
@@ -94,12 +83,9 @@ const Projects = () => {
                 if (match) {
                     projectImage = match[1];
 
-                    // Clean and convert relative paths to absolute GitHub URLs
                     if (projectImage && !projectImage.startsWith('http')) {
-                        // Remove leading ./ or / from path
                         projectImage = projectImage.replace(/^\.?\//, '');
 
-                        // Try different common branch names
                         const branches = ['main', 'master'];
                         projectImage = `https://raw.githubusercontent.com/${owner}/${repoName}/${branches[0]}/${projectImage}`;
 
@@ -133,17 +119,14 @@ const Projects = () => {
                     }
                 } const data = await response.json();
 
-                // Sort by updated_at (most recent first) and filter out forks if desired
                 const sortedRepos = data
-                    .filter(repo => !repo.fork) // Optional: exclude forked repos
+                    .filter(repo => !repo.fork) 
                     .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-                // Show ALL repositories (removed limit)
 
-                // Fetch README data for each repository (with rate limiting protection)
                 console.log(`Fetching README data for ${sortedRepos.length} repositories...`);
 
                 const reposWithReadmeData = [];
-                const batchSize = 3; // Process 3 repos at a time to avoid rate limiting
+                const batchSize = 3;
 
                 for (let i = 0; i < sortedRepos.length; i += batchSize) {
                     const batch = sortedRepos.slice(i, i + batchSize);
@@ -161,7 +144,6 @@ const Projects = () => {
 
                     reposWithReadmeData.push(...batchResults);
 
-                    // Add delay between batches
                     if (i + batchSize < sortedRepos.length) {
                         await new Promise(resolve => setTimeout(resolve, 1000));
                     }
@@ -262,7 +244,6 @@ const Projects = () => {
                                 )}
                             </div>
 
-                            {/* Project Image */}
                             {repo.projectImage && (
                                 <div className="repo-image">
                                     <img
@@ -275,7 +256,6 @@ const Projects = () => {
                                 </div>
                             )}
 
-                            {/* Content and Footer Wrapper */}
                             <div className="repo-bottom-section">
                                 <div className="repo-content">
                                     <p className="repo-description">
@@ -299,7 +279,6 @@ const Projects = () => {
                                 </div>
 
                                 <div className="repo-footer">
-                                    {/* Demo Link */}
                                     {repo.demoLink && (
                                         <a
                                             href={repo.demoLink}
@@ -312,7 +291,6 @@ const Projects = () => {
                                         </a>
                                     )}
 
-                                    {/* GitHub Link */}
                                     <a
                                         href={repo.html_url}
                                         target="_blank"

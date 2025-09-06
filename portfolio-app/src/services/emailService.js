@@ -1,11 +1,9 @@
-// Email configuration - safe for frontend
 export const EMAIL_CONFIG = {
-  fromEmail: 'hamza770440@gmail.com',      // For display only
-  toEmail: 'hamza.hussain.omran@gmail.com', // For display only
-  backendUrl: import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000' // Backend server URL
+  fromEmail: 'hamza770440@gmail.com',     
+  toEmail: 'hamza.hussain.omran@gmail.com', 
+  backendUrl: import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000'
 };
 
-// Main email sending function - connects to secure backend
 export const sendEmail = async (formData) => {
   try {
     const response = await fetch(`${EMAIL_CONFIG.backendUrl}/send-email`, {
@@ -34,7 +32,6 @@ export const sendEmail = async (formData) => {
   } catch (error) {
     console.error('Email sending error:', error);
     
-    // Check if it's a network error (backend not running)
     if (error.message.includes('fetch')) {
       return { 
         success: false, 
@@ -49,7 +46,6 @@ export const sendEmail = async (formData) => {
   }
 };
 
-// Fallback mailto function (backup option)
 export const sendEmailViaMailto = (formData) => {
   const subject = encodeURIComponent(`Message from ${formData.email}`);
   const body = encodeURIComponent(`The user name is ${formData.name}\nThe message is ${formData.message}`);
@@ -60,7 +56,6 @@ export const sendEmailViaMailto = (formData) => {
   return { success: true };
 };
 
-// Health check function
 export const checkEmailServerHealth = async () => {
   try {
     const response = await fetch(`${EMAIL_CONFIG.backendUrl}/health`);

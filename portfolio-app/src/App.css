@@ -16,12 +16,10 @@ body {
   min-height: 100vh;
 }
 
-/* Smooth scrolling for the entire page */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -39,14 +37,12 @@ html {
   background: #0056b3;
 }
 
-/* Global utility classes */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* Animation classes */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -63,7 +59,6 @@ html {
   animation: fadeInUp 0.6s ease-out;
 }
 
-/* Responsive typography */
 h1,
 h2,
 h3,
@@ -78,7 +73,6 @@ p {
   line-height: 1.6;
 }
 
-/* Focus styles for accessibility */
 button:focus,
 input:focus,
 textarea:focus,
@@ -87,7 +81,6 @@ a:focus {
   outline-offset: 2px;
 }
 
-/* Print styles */
 @media print {
   .navbar {
     display: none;

@@ -56,35 +56,28 @@
     display: block;
 }
 
-/* Technology-specific icon colors */
 .react-icon i {
     color: #61DAFB;
-    /* React blue */
 }
 
 .javascript-icon i {
     color: #F7DF1E;
-    /* JavaScript yellow */
 }
 
 .nodejs-icon i {
     color: #339933;
-    /* Node.js green */
 }
 
 .html-icon i {
     color: #E34F26;
-    /* HTML5 orange-red */
 }
 
 .mongodb-icon i {
     color: #47A248;
-    /* MongoDB green */
 }
 
 .git-icon i {
     color: #F05032;
-    /* Git orange */
 }
 
 .skill-name {

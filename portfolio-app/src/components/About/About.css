@@ -67,7 +67,6 @@
     z-index: 1;
 }
 
-/* Keyframe animations */
 @keyframes slideInLeft {
     from {
         opacity: 0;
@@ -240,7 +239,6 @@
     border-radius: 50%;
 }
 
-/* Fallback for when image is not loaded */
 .image-placeholder:empty::before {
     content: "Photo";
     color: white;

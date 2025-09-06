@@ -206,7 +206,6 @@
     }
 }
 
-/* Contact Link Styles */
 .contact-link {
     color: #007bff;
     text-decoration: none;
@@ -219,7 +218,6 @@
     text-decoration: underline;
 }
 
-/* Fallback Email Button */
 .fallback-email-btn {
     background: #007bff;
     color: white;

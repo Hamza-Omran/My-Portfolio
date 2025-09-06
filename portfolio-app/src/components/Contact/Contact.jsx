@@ -3,7 +3,6 @@ import './Contact.css';
 import { sendEmail, EMAIL_CONFIG } from '../../services/emailService';
 
 const Contact = () => {
-    // Email variable - display the recipient email (where messages are received)
     const myEmail = EMAIL_CONFIG.toEmail;
 
     const [formData, setFormData] = useState({
@@ -24,7 +23,6 @@ const Contact = () => {
             [name]: value
         }));
 
-        // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
                 ...prev,
@@ -36,14 +34,12 @@ const Contact = () => {
     const validateForm = () => {
         const newErrors = {};
 
-        // Name validation
         if (!formData.name.trim()) {
             newErrors.name = 'Name is required';
         } else if (formData.name.trim().length < 2) {
             newErrors.name = 'Name must be at least 2 characters';
         }
 
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!formData.email.trim()) {
             newErrors.email = 'Email is required';
@@ -51,7 +47,6 @@ const Contact = () => {
             newErrors.email = 'Please enter a valid email address';
         }
 
-        // Message validation
         if (!formData.message.trim()) {
             newErrors.message = 'Message is required';
         } else if (formData.message.trim().length < 10) {
@@ -74,14 +69,12 @@ const Contact = () => {
         setSubmitStatus('');
 
         try {
-            // Send email using the email service
             const result = await sendEmail(formData);
 
             if (result.success) {
                 setSubmitStatus('success');
                 setFormData({ name: '', email: '', message: '' });
 
-                // Clear success message after 5 seconds
                 setTimeout(() => setSubmitStatus(''), 5000);
             } else {
                 throw new Error(result.error || 'Failed to send email');
