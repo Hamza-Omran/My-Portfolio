@@ -25,28 +25,35 @@ app.use(cors({
 
 // Gmail OAuth2 configuration for hamza770440@gmail.com (sender account)
 const senderOAuth2Client = new google.auth.OAuth2(
-  process.env.GMAIL_CLIENT_ID,
-  process.env.GMAIL_CLIENT_SECRET,
-  process.env.GMAIL_REDIRECT_URI
+  process.env.GMAIL_CLIENT_ID?.replace(/"/g, ''),
+  process.env.GMAIL_CLIENT_SECRET?.replace(/"/g, ''),
+  process.env.GMAIL_REDIRECT_URI?.replace(/"/g, '') || "https://my-portfolio-production-d67a.up.railway.app/"
 );
 
 // Set credentials for sender account (hamza770440@gmail.com)
 senderOAuth2Client.setCredentials({
-  access_token: process.env.GMAIL_ACCESS_TOKEN,
-  refresh_token: process.env.GMAIL_REFRESH_TOKEN
+  access_token: process.env.GMAIL_ACCESS_TOKEN?.replace(/"/g, ''),
+  refresh_token: process.env.GMAIL_REFRESH_TOKEN?.replace(/"/g, '')
 });
+
+console.log('🔧 Gmail Config Debug:');
+console.log('- Client ID:', process.env.GMAIL_CLIENT_ID ? 'Set' : 'Missing');
+console.log('- Client Secret:', process.env.GMAIL_CLIENT_SECRET ? 'Set' : 'Missing');
+console.log('- Access Token:', process.env.GMAIL_ACCESS_TOKEN ? 'Set' : 'Missing');
+console.log('- Refresh Token:', process.env.GMAIL_REFRESH_TOKEN ? 'Set' : 'Missing');
+console.log('- Redirect URI:', process.env.GMAIL_REDIRECT_URI || 'Using default');
 
 // Gmail OAuth2 configuration for hamza.hussain.omran@gmail.com (auto-reply account)
 const autoReplyOAuth2Client = new google.auth.OAuth2(
-  process.env.GMAIL_CLIENT_ID,
-  process.env.GMAIL_CLIENT_SECRET,
-  process.env.GMAIL_REDIRECT_URI
+  process.env.GMAIL_CLIENT_ID?.replace(/"/g, ''),
+  process.env.GMAIL_CLIENT_SECRET?.replace(/"/g, ''),
+  process.env.GMAIL_REDIRECT_URI?.replace(/"/g, '') || "https://my-portfolio-production-d67a.up.railway.app/"
 );
 
 // Set credentials for auto-reply account (hamza.hussain.omran@gmail.com)
 autoReplyOAuth2Client.setCredentials({
-  access_token: process.env.GMAIL_SECONDARY_ACCESS_TOKEN,
-  refresh_token: process.env.GMAIL_SECONDARY_REFRESH_TOKEN
+  access_token: process.env.GMAIL_SECONDARY_ACCESS_TOKEN?.replace(/"/g, ''),
+  refresh_token: process.env.GMAIL_SECONDARY_REFRESH_TOKEN?.replace(/"/g, '')
 });
 
 // Test Gmail configuration on startup
