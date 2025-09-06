@@ -1,0 +1,159 @@
+.skills-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.skill-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Technology-specific icon colors */
+.react-icon i {
+    color: #61DAFB;
+    /* React blue */
+}
+
+.javascript-icon i {
+    color: #F7DF1E;
+    /* JavaScript yellow */
+}
+
+.nodejs-icon i {
+    color: #339933;
+    /* Node.js green */
+}
+
+.html-icon i {
+    color: #E34F26;
+    /* HTML5 orange-red */
+}
+
+.mongodb-icon i {
+    color: #47A248;
+    /* MongoDB green */
+}
+
+.git-icon i {
+    color: #F05032;
+    /* Git orange */
+}
+
+.skill-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.skill-description {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.skill-progress {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border-radius: 4px;
+    transition: width 0.8s ease;
+    animation: fillProgress 2s ease-out;
+}
+
+@keyframes fillProgress {
+    from {
+        width: 0%;
+    }
+}
+
+.skill-level {
+    font-weight: 600;
+    color: #007bff;
+    min-width: 40px;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    .skills-section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .skill-card {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,375 @@
+.projects-section {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e3e3e3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    align-items: start;
+    /* Align cards to start of grid row */
+}
+
+/* Repository Card */
+.repo-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e1e4e8;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    /* Increased to accommodate larger header */
+    align-self: center;
+    /* Center card vertically in its grid cell */
+}
+
+.repo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #007bff;
+}
+
+/* Repository Header */
+.repo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    min-height: 100px;
+    /* Increased height to accommodate 3-line titles */
+}
+
+.repo-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0366d6;
+    margin: 0;
+    flex: 1;
+    line-height: 1.4;
+    max-height: 80px;
+    overflow: hidden;
+    position: relative;
+    word-wrap: break-word;
+    word-break: break-word;
+    /* Force icon and text to stay together by preventing breaks after icon */
+}
+
+.repo-icon {
+    font-size: 1rem;
+    display: inline;
+    margin-right: 0.5rem;
+    /* Prevent line break after icon */
+}
+
+/* Remove the &nbsp; space and use CSS spacing instead */
+.repo-icon+*,
+.repo-icon::after {
+    white-space: nowrap;
+}
+
+/* Add a non-breaking space after icon using CSS */
+.repo-icon::after {
+    content: '\00A0';
+    /* Non-breaking space */
+}
+
+/* Fade out effect for overflow */
+.repo-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 1.4em;
+    background: linear-gradient(to right, transparent, white 75%);
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* Project Image Styles */
+.repo-image {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 200px;
+    /* Fixed height for all images */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+/* Content and Footer Wrapper */
+.repo-bottom-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.repo-image img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.repo-image img:hover {
+    transform: scale(1.05);
+}
+
+.language-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: white;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Repository Content */
+.repo-content {
+    margin-bottom: 1.5rem;
+}
+
+.repo-description {
+    color: #586069;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    min-height: 2.7rem;
+    text-align: justify;
+    /* Consistent height for descriptions */
+}
+
+/* Repository Stats */
+.repo-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #586069;
+    font-size: 0.8rem;
+}
+
+.stat-icon {
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    font-weight: 500;
+}
+
+/* Repository Footer */
+.repo-footer {
+    border-top: 1px solid #e1e4e8;
+    padding-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.demo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+    padding: 0.5rem 1rem;
+    border: 1px solid #28a745;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.demo-link:hover {
+    color: white;
+    background-color: #28a745;
+    text-decoration: none;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #0366d6;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+    padding: 0.5rem 1rem;
+    border: 1px solid #0366d6;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.github-link:hover {
+    color: white;
+    background-color: #0366d6;
+    text-decoration: none;
+}
+
+.link-icon {
+    font-size: 0.8rem;
+}
+
+/* Projects Footer */
+.projects-footer {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.view-all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.view-all-link:hover {
+    background-color: #007bff;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .projects-section {
+        padding: 60px 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .repo-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        min-height: 80px;
+        /* Adjusted for mobile with multi-line titles */
+    }
+
+    .repo-title {
+        max-height: 60px;
+        /* Adjusted for mobile */
+    }
+
+    .repo-image {
+        height: 150px;
+        /* Smaller image height for mobile */
+    }
+
+    .repo-stats {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .view-all-link {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .repo-card {
+        padding: 1.25rem;
+    }
+
+    .repo-title {
+        font-size: 1.1rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
