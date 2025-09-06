@@ -2,7 +2,7 @@
 
 A modern, responsive one-page portfolio website built with React.js and Vite, showcasing my skills, projects, and providing a way to get in touch.
 
-## 📁 Project Structure
+## Project Structure
 
 This portfolio is optimized for deployment with only essential files:
 - `src/` - React components and main application code
@@ -11,7 +11,7 @@ This portfolio is optimized for deployment with only essential files:
 - `dist/` - Production build output (generated on build)
 - Configuration files (package.json, vite.config.js, etc.)
 
-## 🚀 Features
+## Features
 
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - **Smooth Navigation**: Navbar with smooth scrolling to different sections
@@ -34,7 +34,7 @@ This portfolio is optimized for deployment with only essential files:
 - **JavaScript ES6+** - Modern JavaScript features
 - **HTML5** - Semantic markup
 
-## 📋 Sections
+## Sections
 
 1. **Navbar** - Navigation with smooth scroll to sections
 2. **About** - Personal introduction, role, and bio
@@ -42,7 +42,7 @@ This portfolio is optimized for deployment with only essential files:
 4. **Projects** - Portfolio of recent projects with descriptions
 5. **Contact** - Contact form with validation and contact information
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -72,7 +72,7 @@ npm run build
 
 The built files will be in the `dist` directory.
 
-## 🔧 Environment Variables (Optional)
+## Environment Variables (Optional)
 
 Create a `.env` file in the portfolio-app directory for enhanced features:
 
@@ -84,11 +84,11 @@ VITE_GITHUB_TOKEN=your_github_token_here
 VITE_BACKEND_URL=your_backend_url_here
 ```
 
-## 📧 Contact Form
+## Contact Form
 
 The contact form uses a mailto fallback that opens the user's default email client. For production deployment with a backend, set the `VITE_BACKEND_URL` environment variable.
 
-## 🚀 Deployment
+## Deployment
 
 This project can be deployed to:
 - Vercel
@@ -96,11 +96,7 @@ This project can be deployed to:
 - GitHub Pages
 - Any static hosting service
 
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 📬 Contact
+## Contact
 
 - **Email**: hamza.hussain.omran@gmail.com
 - **GitHub**: [Hamza-Omran](https://github.com/Hamza-Omran)
