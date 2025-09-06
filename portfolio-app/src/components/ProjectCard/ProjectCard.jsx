@@ -6,7 +6,7 @@ const ProjectCard = ({ repo, demoLink, projectImage, getLanguageColor }) => {
         <div className="repo-card">
             <div className="repo-header">
                 <h3 className="repo-title">
-                    <span className="repo-icon">📁</span>
+                    <span className="repo-icon"><i className="fas fa-folder"></i></span>
                     {repo.name}
                 </h3>
                 {repo.language && (
@@ -33,16 +33,16 @@ const ProjectCard = ({ repo, demoLink, projectImage, getLanguageColor }) => {
 
                     <div className="repo-stats">
                         <div className="stat">
-                            <span className="stat-icon">⭐</span>
+                            <span className="stat-icon"><i className="fas fa-star"></i></span>
                             <span className="stat-value">{repo.stargazers_count}</span>
                         </div>
                         <div className="stat">
-                            <span className="stat-icon">🍴</span>
+                            <span className="stat-icon"><i className="fas fa-code-branch"></i></span>
                             <span className="stat-value">{repo.forks_count}</span>
                         </div>
                         {repo.size > 0 && (
                             <div className="stat">
-                                <span className="stat-icon">📦</span>
+                                <span className="stat-icon"><i className="fas fa-archive"></i></span>
                                 <span className="stat-value">{(repo.size / 1024).toFixed(1)} MB</span>
                             </div>
                         )}
@@ -57,7 +57,7 @@ const ProjectCard = ({ repo, demoLink, projectImage, getLanguageColor }) => {
                             rel="noopener noreferrer"
                             className="demo-link"
                         >
-                            <span className="link-icon">🚀</span>
+                            <span className="link-icon"><i className="fas fa-rocket"></i></span>
                             Live Demo
                         </a>
                     )}
@@ -67,7 +67,7 @@ const ProjectCard = ({ repo, demoLink, projectImage, getLanguageColor }) => {
                         rel="noopener noreferrer"
                         className="github-link"
                     >
-                        <span className="link-icon">📂</span>
+                        <span className="link-icon"><i className="fab fa-github"></i></span>
                         View Code
                     </a>
                 </div>
