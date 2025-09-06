@@ -220,20 +220,23 @@ const Projects = () => {
                 <div className="section-header">
                     <h2 className="section-title">My Projects</h2>
                     <p className="section-subtitle">
-                        All of my GitHub repositories ({repos.length} total)
+                        All of my GitHub repositories ({repos.length} total) sorted by recent activity
                     </p>
                 </div>
 
                 <div className="projects-grid">
-                    {repos.map((repo) => (
-                        <ProjectCard
-                            key={repo.id}
-                            repo={repo}
-                            demoLink={repo.demoLink}
-                            projectImage={repo.projectImage}
-                            getLanguageColor={getLanguageColor}
-                        />
-                    ))}
+                    {repos
+                        .slice()
+                        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+                        .map((repo) => (
+                            <ProjectCard
+                                key={repo.id}
+                                repo={repo}
+                                demoLink={repo.demoLink}
+                                projectImage={repo.projectImage}
+                                getLanguageColor={getLanguageColor}
+                            />
+                        ))}
                 </div>
 
                 <div className="projects-footer">
