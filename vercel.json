@@ -1,5 +1,0 @@
-{
-  "installCommand": "npm install --prefix portfolio-app",
-  "buildCommand": "npm run build --prefix portfolio-app",
-  "outputDirectory": "portfolio-app/dist"
-}
