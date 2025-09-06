@@ -56,207 +56,12 @@
 }
 
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     margin-top: 3rem;
-    align-items: start;
-}
-
-.repo-card {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e1e4e8;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    align-self: center;
-}
-
-.repo-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: #007bff;
-}
-
-.repo-header {
-    display: flex;
-    justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
-    gap: 1rem;
-    min-height: 100px;
-}
-
-.repo-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #0366d6;
-    margin: 0;
-    flex: 1;
-    line-height: 1.4;
-    max-height: 80px;
-    overflow: hidden;
-    position: relative;
-    word-wrap: break-word;
-    word-break: break-word;
-}
-
-.repo-icon {
-    font-size: 1rem;
-    display: inline;
-    margin-right: 0.5rem;
-}
-
-.repo-icon+*,
-.repo-icon::after {
-    white-space: nowrap;
-}
-
-.repo-icon::after {
-    content: '\00A0';
-}
-
-.repo-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 30px;
-    height: 1.4em;
-    background: linear-gradient(to right, transparent, white 75%);
-    pointer-events: none;
-    opacity: 0.8;
-}
-
-.repo-image {
-    margin-bottom: 1rem;
-    border-radius: 8px;
-    overflow: hidden;
-    height: 200px;
-    display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
-}
-
-.repo-bottom-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.repo-image img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-
-.repo-image img:hover {
-    transform: scale(1.05);
-}
-
-.language-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: white;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.repo-content {
-    margin-bottom: 1.5rem;
-}
-
-.repo-description {
-    color: #586069;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-    min-height: 2.7rem;
-    text-align: justify;
-}
-
-.repo-stats {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.stat {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    color: #586069;
-    font-size: 0.8rem;
-}
-
-.stat-icon {
-    font-size: 0.9rem;
-}
-
-.stat-value {
-    font-weight: 500;
-}
-
-.repo-footer {
-    border-top: 1px solid #e1e4e8;
-    padding-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.demo-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #28a745;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
-    padding: 0.5rem 1rem;
-    border: 1px solid #28a745;
-    border-radius: 6px;
-    background: transparent;
-}
-
-.demo-link:hover {
-    color: white;
-    background-color: #28a745;
-    text-decoration: none;
-}
-
-.github-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #0366d6;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
-    padding: 0.5rem 1rem;
-    border: 1px solid #0366d6;
-    border-radius: 6px;
-    background: transparent;
-}
-
-.github-link:hover {
-    color: white;
-    background-color: #0366d6;
-    text-decoration: none;
-}
-
-.link-icon {
-    font-size: 0.8rem;
 }
 
 .projects-footer {
@@ -299,28 +104,8 @@
     }
 
     .projects-grid {
-        grid-template-columns: 1fr;
+        justify-content: center;
         gap: 1.5rem;
-    }
-
-    .repo-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        min-height: 80px;
-    }
-
-    .repo-title {
-        max-height: 60px;
-    }
-
-    .repo-image {
-        height: 150px;
-    }
-
-    .repo-stats {
-        flex-wrap: wrap;
-        gap: 0.75rem;
     }
 
     .view-all-link {
@@ -334,16 +119,7 @@
         font-size: 1.75rem;
     }
 
-    .repo-card {
-        padding: 1.25rem;
-    }
-
-    .repo-title {
-        font-size: 1.1rem;
-    }
-
     .projects-grid {
-        grid-template-columns: 1fr;
         gap: 1rem;
     }
 }

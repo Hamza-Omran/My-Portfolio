@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import ProjectCard from '../ProjectCard/ProjectCard';
 import './Projects.css';
 
 const Projects = () => {
@@ -41,7 +42,7 @@ const Projects = () => {
             }
 
             const readmeData = await readmeResponse.json();
-            const content = atob(readmeData.content); 
+            const content = atob(readmeData.content);
             const lines = content.split('\n').slice(0, 100);
             const first100Lines = lines.join('\n');
 
@@ -73,8 +74,8 @@ const Projects = () => {
 
             const imagePatterns = [
                 /!\[.*?\]\(([^)]+\.(png|jpg|jpeg|gif|webp|svg))\)/i,
-                /!\[.*?\]\(([^)]+)\)/i, 
-                /<img[^>]+src=["']([^"']+)["'][^>]*>/i 
+                /!\[.*?\]\(([^)]+)\)/i,
+                /<img[^>]+src=["']([^"']+)["'][^>]*>/i
             ];
 
             let projectImage = null;
@@ -119,17 +120,16 @@ const Projects = () => {
                     }
                 } const data = await response.json();
 
-                const sortedRepos = data
-                    .filter(repo => !repo.fork) 
-                    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+                const filteredRepos = data
+                    .filter(repo => !repo.fork);
 
-                console.log(`Fetching README data for ${sortedRepos.length} repositories...`);
+                console.log(`Fetching README data for ${filteredRepos.length} repositories...`);
 
                 const reposWithReadmeData = [];
                 const batchSize = 3;
 
-                for (let i = 0; i < sortedRepos.length; i += batchSize) {
-                    const batch = sortedRepos.slice(i, i + batchSize);
+                for (let i = 0; i < filteredRepos.length; i += batchSize) {
+                    const batch = filteredRepos.slice(i, i + batchSize);
 
                     const batchResults = await Promise.all(
                         batch.map(async (repo) => {
@@ -144,7 +144,7 @@ const Projects = () => {
 
                     reposWithReadmeData.push(...batchResults);
 
-                    if (i + batchSize < sortedRepos.length) {
+                    if (i + batchSize < filteredRepos.length) {
                         await new Promise(resolve => setTimeout(resolve, 1000));
                     }
                 }
@@ -161,10 +161,7 @@ const Projects = () => {
         fetchRepos();
     }, [fetchReadmeData, getGitHubHeaders]);
 
-    const formatDate = (dateString) => {
-        const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
-    };
+
 
     const getLanguageColor = (language) => {
         const colors = {
@@ -223,86 +220,19 @@ const Projects = () => {
                 <div className="section-header">
                     <h2 className="section-title">My Projects</h2>
                     <p className="section-subtitle">
-                        All of my GitHub repositories ({repos.length} total) sorted by recent activity
+                        All of my GitHub repositories ({repos.length} total)
                     </p>
                 </div>
 
                 <div className="projects-grid">
                     {repos.map((repo) => (
-                        <div key={repo.id} className="repo-card">
-                            <div className="repo-header">
-                                <h3 className="repo-title">
-                                    {repo.name}
-                                </h3>
-                                {repo.language && (
-                                    <span
-                                        className="language-badge"
-                                        style={{ backgroundColor: getLanguageColor(repo.language) }}
-                                    >
-                                        {repo.language}
-                                    </span>
-                                )}
-                            </div>
-
-                            {repo.projectImage && (
-                                <div className="repo-image">
-                                    <img
-                                        src={repo.projectImage}
-                                        alt={`${repo.name} preview`}
-                                        onError={(e) => {
-                                            e.target.style.display = 'none';
-                                        }}
-                                    />
-                                </div>
-                            )}
-
-                            <div className="repo-bottom-section">
-                                <div className="repo-content">
-                                    <p className="repo-description">
-                                        {repo.description || 'No description available.'}
-                                    </p>
-
-                                    <div className="repo-stats">
-                                        <div className="stat">
-                                            <span className="stat-icon"><i className="fas fa-star"></i></span>
-                                            <span className="stat-value">{repo.stargazers_count}</span>
-                                        </div>
-                                        <div className="stat">
-                                            <span className="stat-icon"><i className="fas fa-code-branch"></i></span>
-                                            <span className="stat-value">{repo.forks_count}</span>
-                                        </div>
-                                        <div className="stat">
-                                            <span className="stat-icon"><i className="fas fa-calendar-alt"></i></span>
-                                            <span className="stat-value">{formatDate(repo.updated_at)}</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="repo-footer">
-                                    {repo.demoLink && (
-                                        <a
-                                            href={repo.demoLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="demo-link"
-                                        >
-                                            <span className="link-icon"><i className="fas fa-rocket"></i></span>
-                                            Live Demo
-                                        </a>
-                                    )}
-
-                                    <a
-                                        href={repo.html_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="github-link"
-                                    >
-                                        <span className="link-icon"><i className="fab fa-github"></i></span>
-                                        View on GitHub
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <ProjectCard
+                            key={repo.id}
+                            repo={repo}
+                            demoLink={repo.demoLink}
+                            projectImage={repo.projectImage}
+                            getLanguageColor={getLanguageColor}
+                        />
                     ))}
                 </div>
 
