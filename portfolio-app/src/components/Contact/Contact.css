@@ -239,3 +239,8 @@
 .fallback-email-btn:active {
     transform: translateY(0);
 }
+
+#email {
+    word-break: break-all;
+    overflow-wrap: break-word;
+}

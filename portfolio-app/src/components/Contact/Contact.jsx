@@ -111,7 +111,7 @@ const Contact = () => {
                             <div className="contact-icon"><i className="fas fa-envelope"></i></div>
                             <div>
                                 <h3>Email</h3>
-                                <p>
+                                <p id='email'>
                                     <a href={`mailto:${myEmail}`} className="contact-link">
                                         {myEmail}
                                     </a>
