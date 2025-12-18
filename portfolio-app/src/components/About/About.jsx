@@ -8,7 +8,7 @@ const About = () => {
                 <div className="about-content">
                     <div className="about-text">
                         <h1 className="about-title">
-                            <span className="greeting">Hi, I'm </span>
+                            <span className="greeting">Hi, I'm</span>{' '}
                             <span className="name-animation">Hamza Hussain</span>
                         </h1>
                         <h2 className="about-role">Full Stack Web Developer</h2>
