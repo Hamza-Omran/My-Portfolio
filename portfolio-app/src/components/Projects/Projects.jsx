@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
+import { fetchRepositories } from '../../services/githubService';
 import './Projects.css';
 
 const Projects = () => {
@@ -7,159 +8,26 @@ const Projects = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const getGitHubHeaders = useCallback(() => {
-        const headers = {
-            'Accept': 'application/vnd.github.v3+json',
-            'User-Agent': 'Portfolio-Website'
-        };
-
-        const token = import.meta.env.VITE_GITHUB_TOKEN;
-        if (token && token !== 'your_github_token_here' && token !== '') {
-            headers['Authorization'] = `token ${token}`;
-            console.log('GitHub API: Using authenticated requests (5000/hour limit)');
-        } else {
-            console.error('GitHub API: No token provided! Add VITE_GITHUB_TOKEN to environment variables.');
-        }
-
-        return headers;
-    }, []);
-
-    const fetchReadmeData = useCallback(async (owner, repoName) => {
-        try {
-            await new Promise(resolve => setTimeout(resolve, 100));
-
-            const readmeResponse = await fetch(`https://api.github.com/repos/${owner}/${repoName}/readme`, {
-                headers: getGitHubHeaders()
-            });
-
-            if (!readmeResponse.ok) {
-                if (readmeResponse.status === 403) {
-                    console.warn(`Rate limited for ${repoName}, skipping README fetch`);
-                } else if (readmeResponse.status === 404) {
-                    console.log(`No README found for ${repoName}`);
-                }
-                return { demoLink: null, projectImage: null };
-            }
-
-            const readmeData = await readmeResponse.json();
-            const content = atob(readmeData.content);
-            const lines = content.split('\n').slice(0, 100);
-            const first100Lines = lines.join('\n');
-
-            let demoLink = null;
-
-            const demoMatch = first100Lines.match(/demo/i);
-
-            if (demoMatch) {
-                const textAfterDemo = first100Lines.substring(demoMatch.index + demoMatch[0].length);
-
-                const linkMatch = textAfterDemo.match(/https?:\/\/[^\s\n)]+/i);
-
-                if (linkMatch) {
-                    const potentialLink = linkMatch[0];
-
-                    const imageExtensions = /\.(png|jpg|jpeg|gif|webp|svg|ico)(\?|$)/i;
-                    if (!imageExtensions.test(potentialLink)) {
-                        demoLink = potentialLink;
-                        console.log(`Found demo link after "demo": ${demoLink}`);
-                    } else {
-                        console.log(`Filtered out image URL: ${potentialLink}`);
-                    }
-                } else {
-                    console.log(`Found "demo" but no link after it in ${repoName}`);
-                }
-            } else {
-                console.log(`No "demo" word found in ${repoName}`);
-            }
-
-            const imagePatterns = [
-                /!\[.*?\]\(([^)]+\.(png|jpg|jpeg|gif|webp|svg))\)/i,
-                /!\[.*?\]\(([^)]+)\)/i,
-                /<img[^>]+src=["']([^"']+)["'][^>]*>/i
-            ];
-
-            let projectImage = null;
-            for (const pattern of imagePatterns) {
-                const match = first100Lines.match(pattern);
-                if (match) {
-                    projectImage = match[1];
-
-                    if (projectImage && !projectImage.startsWith('http')) {
-                        projectImage = projectImage.replace(/^\.?\//, '');
-
-                        const branches = ['main', 'master'];
-                        projectImage = `https://raw.githubusercontent.com/${owner}/${repoName}/${branches[0]}/${projectImage}`;
-
-                        console.log(`Converting relative path to: ${projectImage}`);
-                    }
-                    break;
-                }
-            }
-
-            return { demoLink, projectImage };
-
-        } catch (error) {
-            console.error(`Error fetching README for ${repoName}:`, error);
-            return { demoLink: null, projectImage: null };
-        }
-    }, [getGitHubHeaders]);
-
     useEffect(() => {
-        const fetchRepos = async () => {
+        const loadRepositories = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('https://api.github.com/users/Hamza-Omran/repos', {
-                    headers: getGitHubHeaders()
-                });
+                console.log('📡 Fetching repositories from backend...');
 
-                if (!response.ok) {
-                    if (response.status === 403) {
-                        throw new Error('GitHub API rate limit exceeded (60 requests/hour without token). Please try again later or contact me for the latest projects.');
-                    } else {
-                        throw new Error(`Failed to fetch repositories: ${response.status} ${response.statusText}`);
-                    }
-                } const data = await response.json();
+                const repositories = await fetchRepositories();
 
-                const filteredRepos = data
-                    .filter(repo => !repo.fork);
-
-                console.log(`Fetching README data for ${filteredRepos.length} repositories...`);
-
-                const reposWithReadmeData = [];
-                const batchSize = 3;
-
-                for (let i = 0; i < filteredRepos.length; i += batchSize) {
-                    const batch = filteredRepos.slice(i, i + batchSize);
-
-                    const batchResults = await Promise.all(
-                        batch.map(async (repo) => {
-                            const readmeData = await fetchReadmeData(repo.owner.login, repo.name);
-                            return {
-                                ...repo,
-                                demoLink: readmeData.demoLink,
-                                projectImage: readmeData.projectImage
-                            };
-                        })
-                    );
-
-                    reposWithReadmeData.push(...batchResults);
-
-                    if (i + batchSize < filteredRepos.length) {
-                        await new Promise(resolve => setTimeout(resolve, 1000));
-                    }
-                }
-
-                setRepos(reposWithReadmeData);
+                console.log(`✅ Loaded ${repositories.length} repositories`);
+                setRepos(repositories);
             } catch (err) {
                 setError(err.message);
-                console.error('Error fetching GitHub repos:', err);
+                console.error('Error loading repositories:', err);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchRepos();
-    }, [fetchReadmeData, getGitHubHeaders]);
+        loadRepositories();
+    }, []);
 
 
 
@@ -232,8 +100,8 @@ const Projects = () => {
                             <ProjectCard
                                 key={repo.id}
                                 repo={repo}
-                                demoLink={repo.demoLink}
-                                projectImage={repo.projectImage}
+                                demoLink={repo.demo_link}
+                                projectImage={repo.project_image}
                                 getLanguageColor={getLanguageColor}
                             />
                         ))}
