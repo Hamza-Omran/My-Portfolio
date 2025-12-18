@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "googleapis": "^140.0.1",
     "pg": "^8.11.3",
     "node-fetch": "^3.3.2"
   },
