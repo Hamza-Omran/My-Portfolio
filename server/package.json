@@ -5,7 +5,8 @@
   "description": "Portfolio backend with GitHub webhook integration and PostgreSQL",
   "scripts": {
     "dev": "vercel dev",
-    "deploy": "vercel --prod"
+    "deploy": "vercel --prod",
+    "build": "echo 'No build needed for serverless functions'"
   },
   "dependencies": {
     "cors": "^2.8.5",
